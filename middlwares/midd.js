@@ -1,6 +1,5 @@
-const adminModel = require("../models/adminModel");
-const faqModel = require("../models/faqModel");
-const userModel = require("../models/userModel");
+const faqModel = require("../Admin/models/faqModel");
+const userModel = require("../User/models/userModel");
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 

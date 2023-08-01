@@ -6,12 +6,15 @@ const userRoute = require('./User/routes/userRoute');
 const adminRoute = require('./Admin/routes/adminRoute');
 const serviceRoute = require('./Admin/routes/serviceRoute');
 const subscriptionRoute = require('./Admin/routes/subscriptionRoute');
-const  bannerRoute = require('./Admin/routes/bannerRoute');
+const bannerRoute = require('./Admin/routes/bannerRoute');
 const faqRoute = require('./Admin/routes/faqRoute');
 const notificatRoute = require('./Admin/routes/notificationRoute');
 const termsConditionRoute = require('./Admin/routes/terms&conditionRoute');
 const privacyPolicyRoute = require('./Admin/routes/privacyPolicyRoute');
-const venderServiceRoute = require('./vendor/routes/vendorServiceRoute');
+const vendorServiceRoute = require('./vendor/routes/vendorServiceRoute');
+const userNotificationRoute = require('./User/routes/UserNotificationRoute');
+const vendorLeadRoute = require('./vendor/routes/vendorLeadRoute');
+const vendorSubRoute = require('./vendor/routes/vendorSubscription');
 const app = express();
 
 
@@ -51,7 +54,10 @@ app.use('/', faqRoute);
 app.use('/', notificatRoute);
 app.use('/', termsConditionRoute);
 app.use('/', privacyPolicyRoute);
-app.use('/', venderServiceRoute);
+app.use('/', vendorServiceRoute);
+app.use('/', userNotificationRoute);
+app.use('/', vendorLeadRoute);
+app.use('/', vendorSubRoute);
 
 app.use((error, req, res, next)=>{
   const message = `this is the Unexpected field --> ${error.field}`
@@ -59,13 +65,14 @@ app.use((error, req, res, next)=>{
 })
 
 
+
 const PORT = 3000;
 const start = async () => {
   try {
     await connectDb();
-    app.listen(PORT,()=>{
+    app.listen(PORT,'192.168.0.232',()=>{
         console.log(`Express app is running on port ${PORT}`);
-    });
+    });   
   } catch (error) {
     console.log(error);
   }

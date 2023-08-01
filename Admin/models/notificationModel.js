@@ -15,7 +15,7 @@ const notificationSchema = new mongoose.Schema(
     },
     notification_type : {
         type : String,
-        enum : ['email', 'sms']
+        enum : ['email']
     },
     description : {
       type: String,

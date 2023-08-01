@@ -1,9 +1,7 @@
 const userModel = require("../../User/models/userModel");
 const faqModel = require("../models/faqModel");
+
 const {
-  isvalid,
-  nameRegex,
-  emailRegex,
   usertypeRegex,
 } = require("../../validations/validation");
 
@@ -22,11 +20,12 @@ const add_faq = async function (req, res) {
         message: "question filed is empty please provide your question",
       });
     }
+
     for (let i = 0; i < question.length; i++) {
       if (question[i].question == req.body.question) {
         return res.status(400).send({
           message:
-            "question is already exist, please provide unique questio..!",
+            "question is already exist, please provide unique question..!",
         });
       }
     }
@@ -62,6 +61,7 @@ const get_costomer_faq = async function (req, res) {
           serialNumber: sr++,
           userType: faq[i].userType,
           question: faq[i].question,
+          reply : faq[i].reply,
           dateAndTime: faq[i].createdAt,
         });
       }
@@ -91,6 +91,7 @@ const get_vendor_faq = async function (req, res) {
           serialNumber: sr++,
           userType: faq[i].userType,
           question: faq[i].question,
+          reply : faq[i].reply,
           dateAndTime: faq[i].createdAt,
         });
       }
@@ -175,7 +176,7 @@ const delete_faq = async function (req, res) {
     let faq = await faqModel.findById(faqId);
     if(!faq){
       return res.status(404).send({
-        message : 'faq not present..!'
+        message : 'faq not exist..!'
       })
     }
     await faqModel.deleteOne({ _id: faqId });

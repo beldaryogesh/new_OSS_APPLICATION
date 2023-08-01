@@ -172,11 +172,6 @@ const registerUser = async function (req, res) {
         })
       }
       obj['storeName'] = storeName;
-      if(req.files.length < 2){
-        return res.status(400).send({
-          message : 'please provide atlist one document..!'
-        })
-      }
       for(let i=0; i<req.files.length; i++){ 
         if(req.files[i].fieldname == 'aadharCard'){
           obj['aadharCard'] = {

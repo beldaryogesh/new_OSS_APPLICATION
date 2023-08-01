@@ -18,7 +18,7 @@ const add_subscription_plan = async function (req, res) {
       });
     }
     let {
-      categoryName,
+      serviceName,  
       subscriptionName,
       description,
       subscriptionPrice,
@@ -28,12 +28,12 @@ const add_subscription_plan = async function (req, res) {
     let admin = await userModel.findById(adminId);
     let subscription = await subscriptionModel.find({ subscriptionName : subscriptionName});
     let service = await serviceModel.find({ })
-    if(!categoryName){
+    if(!serviceName){
       return res.status(400).send({
         message : 'please provide category name..!'
       })
     }
-    if(!nameRegex.test(categoryName)){
+    if(!nameRegex.test(serviceName)){
       return res.status(400).send({
         message : 'category name should contain alphabets only..!'
       })
@@ -41,19 +41,19 @@ const add_subscription_plan = async function (req, res) {
     let ser = [];
     let flag = 0;
     for(let i=0; i<service.length; i++){
-      if(service[i].serviceName == categoryName){
+      if(service[i].serviceName == serviceName){
         flag++
       }
       ser.push(service[i].serviceName)
     }
     if(flag != 1){
       return res.status(400).send({
-        message : `${categoryName} category not exist, you only provide subscription for this ${ser} services..!`
+        message : `${serviceName} category not exist, you only provide subscription for this ${ser} services..!`
       })
     }
     if(!service){
       return res.status(400).send({
-        message : `${categoryName} category not exist, please add ${categoryName} service than you are able to add plan..!`
+        message : `${serviceName} category not exist, please add ${serviceName} service than you are able to add plan..!`
       })
     }
     if (!subscriptionName) {
@@ -104,12 +104,12 @@ const add_subscription_plan = async function (req, res) {
     }
     let obj = {
       adminId : adminId,
-      categoryName : categoryName,
+      serviceName : serviceName,
       PlanName : subscriptionName,
-      description : description,
       validity : subscriptionValidity,
-      status : status,
       amount : subscriptionPrice,
+      status : status,
+      description : description
     }
     let create_subscription = await subscriptionModel.create(data);
     admin.adminSubscription.push(create_subscription._id);
@@ -170,10 +170,11 @@ const update_subscriptin_plan = async function (req, res) {
       description,
       subscriptionPrice,
       subscriptionValidity,
+      status
     } = data;
     let obj = {};
     let subscription = await subscriptionModel.findById(subscriptionId);
-    let service = await serviceModel.findOne({serviceName})
+    let service = await serviceModel.find({ })
     if(serviceName != undefined){
       if(!serviceName){
         return res.status(400).send({
@@ -185,9 +186,22 @@ const update_subscriptin_plan = async function (req, res) {
           message : 'service name should be contain alphabets only..!'
         })
       }
+      let ser = [];
+      let flag = 0;
+      for(let i=0; i<service.length; i++){
+        if(service[i].serviceName == serviceName){
+          flag++
+        }
+        ser.push(service[i].serviceName)
+      }
+      if(flag != 1){
+        return res.status(400).send({
+          message : `${serviceName} category not exist, you only provide subscription for this ${ser} services..!`
+        })
+      }
       if(!service){
         return res.status(400).send({
-          message : `${serviceName} servide not exist, please add ${serviceName} service..!`
+          message : `${serviceName} service not exist, please add ${serviceName} service than you are able to add plan..!`
         })
       }
       obj['serviceName'] = serviceName;
@@ -255,6 +269,19 @@ const update_subscriptin_plan = async function (req, res) {
       }
       obj["validity"] = subscriptionValidity;
     }
+    if(status != undefined){
+      if(!status){
+        return res.status(400).send({
+          message : 'please provide status..!'
+        })
+      }
+      if(!statusRegex.test(status)){
+        return res.status(400).send({
+          message : 'status should be contain Activated and Deactivated..!'
+        })
+      }
+      obj['status'] = status;
+    }
 
     await subscriptionModel.findByIdAndUpdate(
       { _id: subscriptionId },
@@ -266,6 +293,7 @@ const update_subscriptin_plan = async function (req, res) {
       message: "subcription plan update successfully",
       data: obj,
     });
+    console.log(obj)
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
@@ -300,43 +328,6 @@ const delete_subscription_plan = async function (req, res) {
   }
 };
 
-const buyNow = async function (req, res) {
-  try {
-    let subscriptionId = req.params.id;
-    let userId = req.userId;
-    const user = await userModel.findById(userId);
-    const subscription = await subscriptionModel.findById(subscriptionId);
-    if (user.subscriptionId) {
-      return res
-        .status(400)
-        .send({ status: false, message: "subscription is already present" });
-    } else {
-      user["subscriptionId"] = subscriptionId;
-      subscription.userSubscription.push(user._id);
-      let expiryDate = new Date();
-      let flag = expiryDate.getMonth() + subscription.subscriptionValidity;
-      if (flag > 11) {
-        let year = expiryDate.getFullYear() + 1;
-        let month = flag - 11 - 1;
-        expiryDate.setFullYear(year);
-        expiryDate.setMonth(month);
-      } else {
-        let month = flag - 0;
-        expiryDate.setMonth(month);
-      }
-      user["expiryDate"] = expiryDate;
-      user.save();
-      subscription.save();
-    }
-
-    return res
-      .status(200)
-      .send({ status: true, message: "subscription done successfully" });
-  } catch (error) {
-    return res.status(500).send({ status: false, message: error.message });
-  }
-};
-
 const total_revenue = async function (req, res) {
   try {
     let subscription = await subscriptionModel.find({});
@@ -359,6 +350,5 @@ module.exports = {
   get_subscription_plan,
   update_subscriptin_plan,
   delete_subscription_plan,
-  buyNow,
   total_revenue,
 };

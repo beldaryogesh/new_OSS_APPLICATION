@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const bannerSchema = new mongoose.Schema({
-  name: {
+  bannerName: {
     type: String,
     required: true,
   },
@@ -9,7 +9,7 @@ const bannerSchema = new mongoose.Schema({
     type : mongoose.Schema.Types.ObjectId,
     ref : 'user'
   },
-  image: {
+  bannerImage: {
     fileName: {
       type: String,
     },

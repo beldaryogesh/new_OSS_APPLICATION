@@ -1,21 +1,16 @@
 const mongoose = require("mongoose");
 
 const venderService = new mongoose.Schema({
-  categoryName: {
-    type: String,
-    require: true,
-    trim: true,
-  },
-  serviceName: {
+  storeName: {
     type: String,
     require: true,
   },
-  image: {
+  storeImages: {
     fileName: {
-      type: String,
+      type: [String],
     },
     fileAddress: {
-      type: String,
+      type: [String],
     },
   },
   number: {
@@ -23,7 +18,10 @@ const venderService = new mongoose.Schema({
     require: true,
     trim: true,
   },
-
+  typeOfService: { 
+    type : String,
+    trim : true
+  },
   serviceAddress: {
     street: {
       type: String,
@@ -45,6 +43,10 @@ const venderService = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-});
+  serviceViewdUser : {
+    type : [mongoose.Schema.Types.ObjectId],
+    ref : 'user'
+  }
+}, {timestamps : true});
 
 module.exports = mongoose.model("VenderService", venderService);

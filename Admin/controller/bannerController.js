@@ -15,22 +15,22 @@ const add_banner = async function (req, res) {
         .status(400)
         .send({ status: false, message: "please provide data for add banner" });
     }
-    const { name, status , description} = req.body;
+    const { bannerName, status , description} = req.body;
     let admin = await userModel.findById(adminId);
     let obj = {}
     obj['adminId'] = adminId;
-    if (!name) {
+    if (!bannerName) {
       return res
         .status(400)
-        .send({ status: false, message: "please provide banner name" });
+        .send({ status: false, message: "please provide banner bannerName" });
     }
-    if (!nameRegex.test(name)) {
+    if (!nameRegex.test(bannerName)) {
       return res.status(400).send({
         status: false,
-        message: "banner name should contain alphabets only.",
+        message: "banner banner Name should contain alphabets only.",
       });
     }
-    obj['name'] = name;
+    obj['bannerName'] = bannerName;
     if (!description) {
       return res
         .status(400)
@@ -50,16 +50,15 @@ const add_banner = async function (req, res) {
       });
     }
     obj['status'] = status;
-    if (!req.file) {
+    if (!req.files) {
       return res
         .status(400)
-        .send({ status: false, message: "image not present" });
+        .send({ status: false, message: "banner image not present" });
     }
 
-    const { filename, path } = req.file;
-    obj["image"] = {
-      fileName: filename,
-      fileAddress: path,
+    obj["bannerImage"] = {
+      fileName: req.files[0].filename,
+      fileAddress: req.files[0].path,
     };
 
     const savedBanner = await bannerModel.create(obj);
@@ -89,7 +88,7 @@ const get_banner = async function (req, res) {
       result.push({
       SrNo: sr++,
       BannerName : banner[i].name,
-      image : banner[i].image,
+      bannerImage : banner[i].bannerImage,
       Status : banner[i].status
       })
     }
@@ -107,28 +106,28 @@ const update_banner = async function (req, res) {
         .status(400)
         .send({ status: false, message: "please provide data for add banner..!" });
     }
-    const { name, status ,description  } = req.body;
+    const { bannerName, status ,description  } = req.body;
     const obj = { };
 
     let banner = await bannerModel.findById( bannerId );
-    if (name != undefined) {
-      if (!isvalid(name)) {
+    if (bannerName != undefined) {
+      if (!isvalid(bannerName)) {
         return res
           .status(400)
-          .send({ status: false, message: "please provide name..!" });
+          .send({ status: false, message: "please provide banner Name..!" });
       }
-      if (!nameRegex.test(name)) {
+      if (!nameRegex.test(bannerName)) {
         return res.status(400).send({
           status: false,
           message: "banner name should contain alphabets only..!",
         });
       }
-      if(banner.name == name){
+      if(banner.bannerName == bannerName){
         return res.status(400).send({
-          message : `${name} is already exist, please provide unique banner name..!`
+          message : `${bannerName} is already exist, please provide unique banner name..!`
         })
       }
-      obj['name'] = name;
+      obj['bannerName'] = bannerName;
     }
     if (status != status) {
       if (!isvalid(status)) {
@@ -157,18 +156,19 @@ const update_banner = async function (req, res) {
       }
     }
     obj['description'] = description;
-    if(req.file){
-      const {filename, path} = req.file;
+    if(req.files){
       obj['image'] = {
-        fileName : filename,
-        fileAddress: path
+        fileName : req.files.filename,
+        fileAddress: req.files.path
       }
     }
+
     const savedBanner = await bannerModel.findOneAndUpdate(
       { _id: bannerId },
       { $set: obj },
       { new: true }
     );
+
     res.send({
       status: false,
       message: "banner added successfully..!",
@@ -185,6 +185,11 @@ const delete_banner = async function (req, res) {
     let bannerId = req.params.id;
     let adminId = req.userId;
     const banner = await bannerModel.findById(bannerId);
+    if(!banner){
+      return res.status(400).send({
+        message : 'banner is not exist..!'
+      })
+    }
     let admin = await userModel.findById(adminId);
     let index = 0;
     await bannerModel.deleteOne(

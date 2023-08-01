@@ -7,7 +7,7 @@ const subscriptionSchema = new mongoose.Schema(
       type : mongoose.Schema.Types.ObjectId,
       ref : 'user'
     },
-    categoryName : {
+    serviceName : {
       type : String,
       require : true,
       trim : true

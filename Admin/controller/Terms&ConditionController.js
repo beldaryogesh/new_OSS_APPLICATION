@@ -18,9 +18,13 @@ const add_terms_Condition = async function (req, res) {
         message: "terms and condition is already exist..!",
       });
     }
-    await TermsConditionModel.create(req.body);
+    let obj = {
+      TermsCondition : req.body.TermsCondition ? req.body.TermsCondition : undefined
+    }
+    await TermsConditionModel.create(obj);
     return res.status(201).send({
       message: "terms and condition added successfully..!",
+      Terms_Condition : obj
     });
   } catch (error) {
     return res.status(500).send({
@@ -49,6 +53,7 @@ const updateTermsCondition = async function (req, res) {
     );
     return res.status(201).send({
       message: "terms and condition update successfully..!",
+      Terms_Condition : obj
     });
   } catch (error) {
     console.log(error);

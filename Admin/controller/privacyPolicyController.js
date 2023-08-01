@@ -18,9 +18,13 @@ const add_privacy_policy = async function (req, res) {
         message : 'privacy policy are already exist..!'
     })
    }
-    await privacyPolicyModel.create(req.body);
+   let obj = {
+    privacyPolicy : req.body.privacyPolicy ? req.body.privacyPolicy : undefined
+   }
+    await privacyPolicyModel.create(obj);
     return res.status(201).send({
       message: "privacy and policy added successfully..!",
+      privacy_policy : obj
     });
   } catch (error) {
     console.log(error)
@@ -50,6 +54,7 @@ const update_privacy_policy = async function (req, res) {
     );
     return res.status(201).send({
       message: "privacy and policy update successfully..!",
+      privacy_policy : obj
     });
   } catch (error) {
     console.log(error);

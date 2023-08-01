@@ -12,8 +12,6 @@ Router.put('/updateSubscriptionPlan/:id',[commonMid.verifyToken, commonMid.autho
 
 Router.delete('/deleteSubscriptionPlan/:id',[commonMid.verifyToken, commonMid.authorize, commonMid.admin],  subscriptionController.delete_subscription_plan)
 
-Router.post('/buyNow/:id',[commonMid.verifyToken, commonMid.authorize, commonMid.admin_seller], subscriptionController.buyNow);
-
 Router.get('/totalRevenue',[commonMid.verifyToken,commonMid.authorize, commonMid.admin], subscriptionController.total_revenue);
 
 module.exports = Router

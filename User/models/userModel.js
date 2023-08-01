@@ -117,7 +117,12 @@ const userSchema = new mongoose.Schema(
     adminSubscription : {
       type : [mongoose.Schema.Types.ObjectId],
       ref : "Subscription"
-    }
+    },
+    vendorServices : {
+      type : [mongoose.Schema.Types.ObjectId],
+      ref : 'VenderService'
+    },
+    notification : []
   },
   { timestamps: true },
   { versionKey: false }

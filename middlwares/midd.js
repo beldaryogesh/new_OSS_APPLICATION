@@ -1,11 +1,11 @@
 const faqModel = require("../Admin/models/faqModel");
 const userModel = require("../User/models/userModel");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const verifyToken = function (req, res, next) {
   try {
-    console.log('i am verify token')
+    console.log("i am verify token");
     let token = req.headers["x-api-key"];
     if (!token) {
       return res
@@ -27,10 +27,10 @@ const verifyToken = function (req, res, next) {
 
 const authorize = async function (req, res, next) {
   try {
-    console.log("i am authorize")
+    console.log("i am authorize");
 
     let userId = req.userId;
-    let user = await userModel.findById(userId)
+    let user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "you are not registerd" });
     }
@@ -39,11 +39,11 @@ const authorize = async function (req, res, next) {
     }
     let id = req.params.id;
 
-    if(id != undefined){
-      if(!mongoose.isValidObjectId(id)){
+    if (id != undefined) {
+      if (!mongoose.isValidObjectId(id)) {
         return res.status(400).send({
-          message : 'please provide valid mongoose Id..!'
-        })
+          message: "please provide valid mongoose Id..!",
+        });
       }
     }
     next();
@@ -52,13 +52,12 @@ const authorize = async function (req, res, next) {
   }
 };
 
-
 const admin = async function (req, res, next) {
   try {
-    console.log('i am admin')
-  
+    console.log("i am admin");
+
     let userId = req.userId;
-  
+
     const user = await userModel.findById(userId);
     if (user.userType != "admin") {
       return res
@@ -73,7 +72,7 @@ const admin = async function (req, res, next) {
 
 const admin_seller = async function (req, res, next) {
   try {
-    console.log('i am admin_seller')
+    console.log("i am admin_seller");
     let userId = req.userId;
     const user = await userModel.findById(userId);
     if (user.userType == "customer") {
@@ -89,13 +88,40 @@ const admin_seller = async function (req, res, next) {
   }
 };
 
+const checkVendorSubscription = async function (req, res, next) {
+  try {
+    const vendorId = req.userId;
+    const vendor = await userModel.findById(vendorId);
+
+    if (!vendor.subscriptionId) {
+      return res
+        .status(400)
+        .send({
+          message:
+            "you have not taken subscription, take subscription then you can add service..😀",
+        });
+    }
+    let message = "your subscription plan is expired..🙂";
+    if (!vendor.subscriptionId || vendor.expiryDate < Date.now()) {
+      vendor.notification.unshift(message);
+      vendor.save();
+      return res
+        .status(403)
+        .send({ message: "Your subscription has expired. Please renew it." });
+    }
+
+    next();
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: "Error checking vendor subscription status." });
+  }
+};
 
 module.exports = {
   verifyToken,
   authorize,
   admin,
-  admin_seller
+  admin_seller,
+  checkVendorSubscription,
 };
-
-
-

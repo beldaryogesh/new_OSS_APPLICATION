@@ -19,9 +19,21 @@ const vendorLeadSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
+  street: {
     type: String,
-    required: true,
+    trim: true,
+  },
+  state:{
+    type: String,
+    trim: true,
+  },
+  city: {
+    type: String,
+    trim: true,
+  },
+  pincode: {
+    type: String,
+    trim: true,
   },
   message : {
     type : String

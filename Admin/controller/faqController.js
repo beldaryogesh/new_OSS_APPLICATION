@@ -193,7 +193,7 @@ const delete_faq = async function (req, res) {
 
 const reply_faq = async function (req, res) {
   try {
-    let faqId = req.params.id;
+    let faqId = req.body.id;
     let reply = req.body;
     if (!req.body) {
       return res.status(400).send({

@@ -6,7 +6,11 @@ const commonMid = require('../../middlwares/midd')
 
 Router.get('/getnotifications' , [ commonMid.verifyToken, commonMid.authorize], UserNotificationController.getUserNotifications );
 
+Router.post('/removeNotifications' , [ commonMid.verifyToken, commonMid.authorize], UserNotificationController.removeNotifications );
+
 Router.post('/notification/mark-read/:id', [ commonMid.verifyToken, commonMid.authorize ], UserNotificationController.markNotificationAsRead);
+
+
 
 module.exports = Router;
 

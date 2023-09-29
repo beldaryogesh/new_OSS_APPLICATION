@@ -1,5 +1,7 @@
 const bannerModel = require("../models/bannerModel");
 const userModel = require("../../User/models/userModel");
+const baseUrlUtils = require('../../middlwares/baseURL')
+
 const {
   isValidRequestBody,
   isvalid,
@@ -10,6 +12,7 @@ const {
 const add_banner = async function (req, res) {
   try {
     let adminId = req.userId;
+    let baseUrl = baseUrlUtils.generateBaseUrl(req);
     if (!req.body) {
       return res
         .status(400)
@@ -50,20 +53,18 @@ const add_banner = async function (req, res) {
       });
     }
     obj['status'] = status;
-    if (!req.files) {
+    if (req.files.length == 0) {
       return res
         .status(400)
-        .send({ status: false, message: "banner image not present" });
+        .send({ message: "banner image not present" });
     }
 
-    obj["bannerImage"] = {
-      fileName: req.files[0].filename,
-      fileAddress: req.files[0].path,
-    };
+    obj["bannerImage"] =  baseUrl + '/uploads/' +  req.files[0].filename
 
     const savedBanner = await bannerModel.create(obj);
     admin.adminBanners.push(savedBanner._id);
     admin.save();
+    console.log(savedBanner)
     res.send({
       status: false,
       message: "banner added successfully",
@@ -101,6 +102,7 @@ const get_banner = async function (req, res) {
 const update_banner = async function (req, res) {
   try {
     let bannerId = req.params.id;
+    let baseUrl = baseUrlUtils.generateBaseUrl(req);
     if (!isValidRequestBody(req.body)) {
       return res
         .status(400)
@@ -156,11 +158,8 @@ const update_banner = async function (req, res) {
       }
     }
     obj['description'] = description;
-    if(req.files){
-      obj['image'] = {
-        fileName : req.files.filename,
-        fileAddress: req.files.path
-      }
+    if(req.files.length <= 1){
+      obj['bannerImage'] =  baseUrl + '/uploads/' + req.files[0].filename
     }
 
     const savedBanner = await bannerModel.findOneAndUpdate(

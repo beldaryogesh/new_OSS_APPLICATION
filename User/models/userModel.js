@@ -5,49 +5,36 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
       trim: true,
     },
     number: {
       type: Number,
-      require: true,
-      unique: true,
-      trim: true,
+  
     },
     email: {
       type: String,
-      require: true,
       trim: true,
     },
     password: {
       type: String,
-      require: true,
       trim: true,
     },
-    address: {
-      street: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      city: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      pincode: {
-        type: Number,
-        required: true,
-        trim: true,
-      },
+    state: {
+      type: String,
+      trim: true,
+    },
+    city: {
+      type: String,
+      trim: true,
     },
     profileImage: {
-      fileName: {
-        type: String,
-      },
-      fileAddress: {
-        type: String,
-      },
+     type: String
+    },
+    registerWith : {
+      type : String
+    },
+    Id : {
+      type : String
     },
     otp: {
       type: ObjectId,
@@ -56,52 +43,32 @@ const userSchema = new mongoose.Schema(
     userType: {
       type: String,
       default: "customer",
-      enum : ["vendor", "customer", "admin"]
+      enum: ["vendor", "customer", "admin"],
     },
-    typeOfService : {
-      type : String,
-      trim : true
+    address : {
+      type : String
     },
-    storeName : {
-      type : String,
-      trim : true
+    typeOfService: {
+      type: String,
+      trim: true,
     },
-    aadharCard : {
-      fileName: {
-        type: String,
-      },
-      fileAddress: {
-        type: String,
-      }
+    storeName: {
+      type: String,
+      trim: true,
     },
-    panCardFrontPage  : {
-      fileName: {
-        type: String,
-      },
-      fileAddress: {
-        type: String,
-      }
+    aadharCard: {
+     type : String
     },
-    panCardBackPage  : {
-      fileName: {
-        type: String,
-      },
-      fileAddress: {
-        type: String,
-      }
+    panCard: {
+     type : String
     },
-    storeImage : {
-      fileName: {
-        type: String,
-      },
-      fileAddress: {
-        type: String,
-      }
-    },
-  
+    storeImages: [],
     subscriptionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Subscription",
+    },
+    SubStartDate : {
+      type : Date
     },
     expiryDate: {
       type: Date,
@@ -110,19 +77,22 @@ const userSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Service",
     },
-    adminBanners : {
-      type : [mongoose.Schema.Types.ObjectId],
-      ref : "Banner"
+    adminBanners: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Banner",
     },
-    adminSubscription : {
-      type : [mongoose.Schema.Types.ObjectId],
-      ref : "Subscription"
+    adminSubscription: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Subscription",
     },
-    vendorServices : {
-      type : [mongoose.Schema.Types.ObjectId],
-      ref : 'VenderService'
+    vendorServices: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "VenderService",
     },
-    notification : []
+    notification: [{
+      message : String,
+      time : Date
+    }],
   },
   { timestamps: true },
   { versionKey: false }

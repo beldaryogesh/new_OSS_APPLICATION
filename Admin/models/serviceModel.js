@@ -12,12 +12,7 @@ const serviceSchema = new mongoose.Schema({
     trim: true,
   },
   serviceImage: {
-    fileName: {
-      type: String,
-    },
-    fileAddress: {
-      type: String,
-    },
+   type : String
   },
   adminId: {
     type: mongoose.Schema.Types.ObjectId,

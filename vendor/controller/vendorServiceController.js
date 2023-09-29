@@ -1,163 +1,168 @@
 const vendorServiceModel = require("../models/vendorServiceModel");
 const serviceModel = require("../../Admin/models/serviceModel");
 const userModel = require("../../User/models/userModel");
-const pinValidator = require("pincode-validator");
+const baseUrlUtils = require('../../middlwares/baseURL')
+
+const mongoose = require("mongoose");
+
 const { nameRegex, phoneRegex } = require("../../validations/validation");
 
-const add_service = async function (req, res) {
+const add_service = async (req, res) => {
   try {
-    let vendorId = req.userId;
-    let vendor = await userModel.findById(vendorId);
-    let service = await vendorServiceModel.find({ vendorId: vendorId });
-
-    if (service) {
-      return res.status(200).send({
-        message: "you are already peovide service..!",
-      });
-    }
+    let vendor = await userModel.findById(req.userId);
     let obj = {
-      vendorId: vendorId,
+      vendorId : vendor._id,
       storeName: vendor.storeName,
       number: vendor.number,
       typeOfService: vendor.typeOfService,
-      serviceAddress: vendor.address,
+      state: vendor.state ? vendor.state : undefined,
+      city: vendor.city ? vendor.city : undefined,
+      address: vendor.address ? vendor.address : undefined,
+      storeImages : vendor.storeImages ? vendor.storeImages : undefined
     };
-
-    const Service = await vendorServiceModel.create(obj);
-    let find_service = await serviceModel.findOne({
-      serviceName: vendor.typeOfService,
-    });
-    vendor.vendorServices.push(Service._id);
-    find_service.vendorId.push(vendorId);
-    find_service.serviceId.push(Service._id);
-    vendor.save();
-    find_service.save();
-    return res.status(201).send({
-      message: "store details added successfully..!",
-    });
+    const service = await vendorServiceModel.create(obj);
+    let find_service = await serviceModel.findOne({serviceName: vendor.typeOfService});
+    vendor.vendorServices.push(service._id);
+    find_service.vendorId.push(vendor._id);
+    find_service.serviceId.push(service._id);
+     await vendor.save();
+     await find_service.save();
   } catch (error) {
     console.log(error);
     return res.status(500).send({
-      message: error,
+      error_code : 500, message: 'error inside add service ..!'
     });
   }
 };
 
 const getService = async function (req, res) {
   try {
-    let serviceName = req.query.serviceName;
+    let serviceName = req.body.serviceName;
     if (!serviceName) {
-      return res.status(400).send({
-        message: "please provide service name..!",
+      return res.status(200).send({
+        error_code : 400, message: "please provide service name..!",
       });
     }
-    let service = await serviceModel.findOne({ serviceName: serviceName });
-    if (service.serviceId.length == 0) {
-      return res.status(400).send({
-        message: "no service available for this service name..!",
-      });
-    }
-    let vendor_service = await vendorServiceModel.find({
-      _id: service.serviceId,
-    });
-    if (!vendor_service) {
-      return res.status(400).send({
-        message: "no service available..!",
-      });
-    }
-    let sr = 1;
+    let service = await vendorServiceModel.find({typeOfService : serviceName});
+   if(service.length == 0){
+    return res.status(200).send({error_code : 404, message : 'no service available for this category..!'})
+   }
+  
     let result = [];
-    for (let i = 0; i < vendor_service.length; i++) {
-      result.push({
-        serialNumber: sr++,
-        storeName: vendor_service[i].storeName,
-        Mobile: vendor_service[i].number,
-        image: vendor_service[i].image,
-        Address: vendor_service[i].serviceAddress,
+    for (let i = 0; i < service.length; i++) {
+      
+       result.push({
+        storeName: service[i].storeName,
+        storeImages : service[i].storeImages,
+        Address: service[i].address,
+        serviceId : service[i]._id,
+        profileImage : service[i].profileImage ? service[i].profileImage : undefined
       });
     }
+
     return res.status(200).send({
-      message: "service List",
-      data: result,
+      error_code : 200, message: "service List",
+      data: result, 
     });
   } catch (error) {
     console.log(error);
-    return res.status(400).send({
-      message: error.message,
+    return res.status(500).send({
+      error_code : 500, message: 'error inside get service..!',
     });
   }
 };
 
+
+const getVendorServiceById = async function(req, res){
+  try{
+    let serviceId = req.body.serviceId;
+    if(!serviceId) {
+      return res.status(200).send({error_code : 400, message : 'please provide service Id..!'})
+    }
+   
+      if (!mongoose.isValidObjectId(serviceId)) {
+        return res.status(200).send({
+          error_code: 400,
+          message: "please provide valid mongoose Id..!",
+        });
+      }
+    
+    let service = await vendorServiceModel.findById(serviceId)
+    if(!service){
+      return res.status(200).send({error_code : 404, message : 'no service available for this service Id..!'})
+    }
+    let obj = {
+      storeName: service.storeName,
+      Mobile: service.number,
+      storeImages: service.storeImages,
+      Address: service.address,
+      profileImage : service.profileImage ? service.profileImage : undefined
+    }
+    return res.status(200).send({error_code : 200, data : obj})
+  }catch(error){
+    console.log(error)
+    return res.status(500).send({error_code : 500, message : 'error inside getVendorServiceById..!'})
+  }
+}
+
 const update_service = async function (req, res) {
   try {
-    let serviceId = req.params.id;
-    // let data = req.body;
-
+    let vendorId = req.userId
     if (!req.body) {
       return res
-        .status(400)
-        .send({ message: "please provide data for update daitels..!" });
+        .status(200)
+        .send({ error_code : 400, message: "please provide data for update service..!" });
     }
-    let { storeName, number, serviceAddress } = req.body;
-    let service = await vendorServiceModel.findById(serviceId);
+     let baseUrl = baseUrlUtils.generateBaseUrl(req);
+    let { storeName, number, street, city, pincode } = req.body;
+    let service = await vendorServiceModel.findById(vendorId);
     if (storeName) {
       if (!nameRegex.test(storeName)) {
-        return res.status(400).send({
-          message: "please provide valid storeName..!",
+        return res.status(200).send({
+          error_code : 400, message: "please provide valid storeName..!",
         });
       }
     }
     if (number) {
       if (!number) {
-        return res.status(400).send({ message: "please provide number..!" });
+        return res.status(200).send({ error_code : 400, message: "please provide number..!" });
       }
       if (!phoneRegex.test(number)) {
-        return res.status(400).send({
-          message: "please provide valid indian formate number..!",
+        return res.status(200).send({
+          error_code : 400, message: "please provide valid indian formate number..!",
         });
       }
     }
-    if (serviceAddress) {
-      if (
-        !serviceAddress.street ||
-        !serviceAddress.city ||
-        !serviceAddress.pincode
-      )
-        return res.status(400).send({
-          status: false,
-          message: "Enter the street, city and pincode in the serviceAddress.",
-        });
-      let pinValidated = pinValidator.validate(serviceAddress.pincode);
-      if (!pinValidated)
-        return res
-          .status(400)
-          .send({ status: false, message: "Please enter a valid pincode." });
-    }
+
     let obj = {
       storeName: storeName ? storeName : service.storeName,
       number: number ? number : service.number,
-      serviceAddress: serviceAddress ? serviceAddress : service.serviceAddress,
     };
-
-    if (req.files) {
-      obj["storeImages"] = {
-        fileName: req.files[0].filename,
-        fileAddress: req.files[0].path,
-      };
+    if(street){
+      obj['street'] = street
     }
-    await vendorServiceModel.findByIdAndUpdate(
-      { _id: serviceId },
+    if(city){
+      obj['city'] = city
+    }  
+
+    if (req.files.length>0) {
+      obj["storeImages"] =baseUrl + '/uploads/' +  req.files[0].filename;
+    }
+
+  await vendorServiceModel.findOneAndUpdate(
+      { vendorId : vendorId },
       { $set: obj },
       { new: true }
     );
-    return res.status(202).send({
-      message: "store details update successfully..!",
+   
+    return res.status(201).send({
+      error_code : 200, message: "store details update successfully..!",
       details: obj,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
-      message: "Error updating vendor service..!",
+      error_code : 500, message: "Error updating vendor service..!",
     });
   }
 };
@@ -166,32 +171,72 @@ const totale_stores = async function (req, res) {
   try {
     let count_stores = await vendorServiceModel.find({});
     if (count_stores.length == 0) {
-      return res.status(404).send({
-        message: "no store available..!",
+      return res.status(200).send({
+        error_code : 404, message: "no store available..!",
       });
     }
     return res.status(200).send({
+      error_code: 200,
       total_store: count_stores.length,
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).send({
-      message: error.message,
-    });
+    return res.status(500).send({error_code : 500, message : 'error inside totale stores..!'})
   }
 };
 
+const totalCustomer = async function (req, res){
+  try{
+    let user = await userModel.find({})
+    let result = []
+    for(let i=0; i<user.length; i++){
+      if(user[i].userType == 'customer'){
+        result.push(user[i])
+      }
+    }
+    return res.status(200).send({error_code : 200,total_customer : result.length})
+  }catch(error){
+    console.log(error)
+    return res.status(500).send({error_code : 500, message : 'error inside total customer'})
+  }
+}
+
+const customer = async function(req, res){
+  try{
+    let vendorId = req.userId;
+
+    let customer = await vendorServiceModel.findOne({ vendorId : vendorId })
+     if(!customer){
+      return res.status(200).json({error_code : 404, customer : 0})
+     }
+    return res.status(200).send({error_code : 200, customer : customer.customer.length})
+
+  }catch(error){
+    console.log(error)
+    return res.status(500).send({error_code : 500, message : 'error inside customer api..!'})
+  }
+}
+
 const getMostUseServices = async function (req, res) {
   try {
-    const service = await serviceModel.find().sort({ usageCount: -1 }).limit(5);
-    console.log(service);
+    const service = await serviceModel.find().sort({ usageCount: -1 }).limit(10);
+    let obj = []
+   for(let i=0; i<service.length; i++){
+    obj.push({
+      serviceName:service[i].serviceName,
+      serviceImage:service[i].serviceImage,
+      serviceId:service[i]._id
+
+    })
+   }
+    
     return res.status(200).send({
-      message: "most used service",
-      services: service,
+      error_code : 200, message: "most used service",
+      services: obj,
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).send({ message: error.message });
+    return res.status(500).send({ error_code : 500, message: 'error inside get most service api..!' });
   }
 };
 
@@ -202,20 +247,36 @@ const contactViews = async function (req, res) {
     let contact = 0;
 
     for (let i = 0; i < getviews.length; i++) {
-      if (getviews[i].serviceViewdUser){
+      if (getviews[i].serviceViewdUser) {
         contact = getviews[i].serviceViewdUser.length;
       }
     }
     return res.status(200).send({
-      contactViews: contact
+      error_code : 200,
+      contactViews: contact,
     });
   } catch (error) {
-    console.log(error); 
+    console.log(error);
     return res.status(500).send({
-      message: error
+      error_code : 500, message: error,
     });
   }
 };
+
+const getServiceName = async function(req, res){
+  try{
+    let service = await serviceModel.find()
+    let ser = [];
+    for (let i = 0; i < service.length; i++) {
+      ser.push(service[i].serviceName);
+    }
+    return res.status(200).send({error_code : 200, service : ser})
+
+  }catch(error){
+    console.log(error);
+    return res.status(500).send({error_code : 500, message : 'error inside get service name.!'})
+  }
+}
 
 module.exports = {
   add_service,
@@ -223,9 +284,9 @@ module.exports = {
   update_service,
   totale_stores,
   getMostUseServices,
-  contactViews
+  contactViews,
+  totalCustomer,
+  customer,
+  getVendorServiceById,
+  getServiceName
 };
-
-
-
-

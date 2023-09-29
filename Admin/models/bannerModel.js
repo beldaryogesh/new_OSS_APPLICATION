@@ -10,12 +10,7 @@ const bannerSchema = new mongoose.Schema({
     ref : 'user'
   },
   bannerImage: {
-    fileName: {
-      type: String,
-    },
-    fileAddress: {
-      type: String,
-    },
+    type : String
   },
   status: {
     type: String,

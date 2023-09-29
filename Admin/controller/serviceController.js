@@ -1,5 +1,7 @@
 const serviceModel = require("../models/serviceModel");
 const userModel = require("../../User/models/userModel");
+const baseUrlUtils = require('../../middlwares/baseURL')
+
 
 const { nameRegex } = require("../../validations/validation");
 
@@ -7,6 +9,7 @@ const add_service = async function (req, res) {
   try {
     let data = req.body;
     let adminId = req.userId;
+    let baseUrl = baseUrlUtils.generateBaseUrl(req);
     if (!data) {
       return res.status(400).send({
         status: false,
@@ -40,14 +43,12 @@ const add_service = async function (req, res) {
         .send({ status: false, message: "please provide description" });
     }
     obj["description"] = description;
-    if (req.files) {
-      obj["serviceImage"] = {
-        fileName: req.files[0].filename,
-        fileAddress: req.files[0].path,
-      };
+    if (req.files.length <= 1) {
+      obj["serviceImage"] = baseUrl + '/uploads/' +  req.files[0].filename
     }
     let add_service = await serviceModel.create(obj);
     admin.adminService.push(add_service._id);
+    
     admin.save();
     return res.status(201).send({
       status: true,
@@ -60,10 +61,11 @@ const add_service = async function (req, res) {
   }
 };
 
-const get_service = async function (req, res) {
+const  get_service = async function (req, res) {
   try {
     let data = req.query;
     let service = await serviceModel.find({});
+   
     let { serviceName } = data;
     let result = [];
     let sr = 1;
@@ -74,8 +76,9 @@ const get_service = async function (req, res) {
             SrNo: sr++,
             ServiceName: service[i].serviceName,
             Description: service[i].description,
-            Image: service[i].image,
+            Image: service[i].serviceImage,
           });
+          console.log(service[i].serviceImage)
           return res
             .status(200)
             .send({ status: true, message: "serviceList", data: result });
@@ -85,7 +88,7 @@ const get_service = async function (req, res) {
           SrNo: sr++,
           ServiceName: service[i].serviceName,
           Description: service[i].description,
-          Image: service[i].image,
+          Image: service[i].serviceImage
         });
       }
     }
@@ -108,6 +111,7 @@ const update_service = async function (req, res) {
   try {
     let serviceId = req.params.id;
     let data = req.body;
+    let baseUrl = baseUrlUtils.generateBaseUrl(req);
     if (!data) {
       return res.status(400).send({
         message: "please provide data for update service..!",
@@ -148,11 +152,8 @@ const update_service = async function (req, res) {
       description: description ? description : service.description,
       serviceImage: serviceImage ? serviceImage : service.serviceImage,
     };
-    if (req.files) {
-      obj["serviceImage"] = {
-        fileName: req.files[0].filename,
-        fileAddress: req.files[0].path,
-      };
+    if (req.files.length <= 1) {
+      obj["serviceImage"] = baseUrl + '/uploads/' + req.files[i].filename
     }
 
     await serviceModel.findOneAndUpdate(

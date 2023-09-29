@@ -1,8 +1,9 @@
 const express = require("express");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const multer = require("multer");
+const path = require('path');
 const authRoute = require('./User/routes/authRoute');
-const userRoute = require('./User/routes/userRoute'); 
+const userRoute = require('./User/routes/userRoute');
 const adminRoute = require('./Admin/routes/adminRoute');
 const serviceRoute = require('./Admin/routes/serviceRoute');
 const subscriptionRoute = require('./Admin/routes/subscriptionRoute');
@@ -19,10 +20,10 @@ const app = express();
 
 
 const URL =
-"mongodb+srv://yogesh_beldar:Oh9CU4nZCayFGTeC@cluster0.zveoo.mongodb.net/one-stop-service";
+  "mongodb+srv://yogesh_beldar:Oh9CU4nZCayFGTeC@cluster0.zveoo.mongodb.net/one-stop-service";
 const connectDb = async () => {
   try {
-    mongoose.connect(URL, { useNewUrlParser: true });
+    await mongoose.connect(URL, { useNewUrlParser: true });
     console.log("mongoDB is connected");
   } catch (error) {
     console.log(error);
@@ -41,8 +42,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({storage : storage});
+const upload = multer({ storage: storage });
 app.use(upload.any());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', authRoute);
 app.use('/', userRoute);
@@ -51,7 +53,7 @@ app.use('/', serviceRoute);
 app.use('/', subscriptionRoute);
 app.use('/', bannerRoute);
 app.use('/', faqRoute);
-app.use('/', notificatRoute);
+app.use('/', notificatRoute);  
 app.use('/', termsConditionRoute);
 app.use('/', privacyPolicyRoute);
 app.use('/', vendorServiceRoute);
@@ -59,23 +61,22 @@ app.use('/', userNotificationRoute);
 app.use('/', vendorLeadRoute);
 app.use('/', vendorSubRoute);
 
-app.use((error, req, res, next)=>{
+app.use((error, req, res, next) => {
   const message = `this is the Unexpected field --> ${error.field}`
   return res.status(500).send(message)
 })
 
-
-
 const PORT = 3000;
 const start = async () => {
   try {
-    await connectDb();
-    app.listen(PORT,'192.168.0.232',()=>{
-        console.log(`Express app is running on port ${PORT}`);
-    });   
+    connectDb();
+    app.listen(PORT,'192.168.0.234' ,() => {
+      console.log(`Express app is running on port ${PORT}`);
+    });
+
   } catch (error) {
-    console.log(error);
+    console.log(error); 
   }
-};
+}; 
 
 start();

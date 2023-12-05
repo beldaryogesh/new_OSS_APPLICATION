@@ -1,0 +1,1747 @@
+{
+	"info": {
+		"_postman_id": "f68d5113-e382-462f-81bc-68d185438f28",
+		"name": "AcService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27854571",
+		"_collection_link": "https://solar-space-883814.postman.co/workspace/My-Workspace~db9e36d1-5c34-4c38-8a87-dd89599ae1a0/collection/27854571-f68d5113-e382-462f-81bc-68d185438f28?action=share&source=collection_link&creator=27854571"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "SuyashShukla04@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Suyash@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "192.168.0.142:5000/admin/login",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAdmin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWJhNzFhNTI5M2Q2OGEwNGNmYjFkOCIsImlhdCI6MTY5NjMxMTU0MiwiZXhwIjoxNjk2OTExNTQyfQ.ZgTazOyDoW-VsxMA9ypPWhANOKTqQKpQX1x63NiCIeo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstName",
+									"value": "Sudhanshu",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "oldPassword",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "profileImage",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/admin/update?id=651ba71a5293d68a04cfb1d8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "651ba71a5293d68a04cfb1d8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createEmployee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWJhNzFhNTI5M2Q2OGEwNGNmYjFkOCIsImlhdCI6MTY5NjMyNjM0NywiZXhwIjoxNjk2OTI2MzQ3fQ.tDaYMeup9HVrs9jp-OwmNvhqQvPmiBUAGPkEUvUb5t4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employeeId",
+									"value": "7882",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "unknow",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Unknow@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "192.168.0.141:5000/registeremployee",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"registeremployee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin Password update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "oldPassword",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "192.168.0.141:5000/admin/update/password/651ba71a5293d68a04cfb1d8",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"update",
+								"password",
+								"651ba71a5293d68a04cfb1d8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmployee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWJhNzFhNTI5M2Q2OGEwNGNmYjFkOCIsImlhdCI6MTY5NjMyNjM0NywiZXhwIjoxNjk2OTI2MzQ3fQ.tDaYMeup9HVrs9jp-OwmNvhqQvPmiBUAGPkEUvUb5t4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employeeId",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "192.168.0.255:5000/updateemployee/id=",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"255"
+							],
+							"port": "5000",
+							"path": [
+								"updateemployee",
+								"id="
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEmployee",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWJhNzFhNTI5M2Q2OGEwNGNmYjFkOCIsImlhdCI6MTY5NjMyNjM0NywiZXhwIjoxNjk2OTI2MzQ3fQ.tDaYMeup9HVrs9jp-OwmNvhqQvPmiBUAGPkEUvUb5t4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.141:5000/deleteemployee/651be3d81b50cf57eb654c83",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"deleteemployee",
+								"651be3d81b50cf57eb654c83"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAdmin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://demo5.testingsites.in/getAdmin",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"getAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmployee",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc3NzgxNzAyMTg2NWYwYmRhNmY4YiIsImlhdCI6MTY5NzYxOTA5NywiZXhwIjoxNjk4MjE5MDk3fQ.BkejSydxsdBzh7E2ogjhgJbSuWA8NJEVz_e_BEu-y48",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.141:5000/getemployee/6527860a7f9c82af046ff0b5",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"getemployee",
+								"6527860a7f9c82af046ff0b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllEmployee",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc3NzgxNzAyMTg2NWYwYmRhNmY4YiIsImlhdCI6MTY5NzYyOTAxMiwiZXhwIjoxNjk4MjI5MDEyfQ.OBjlkcfqmBXXOIzSu8jHdGzJvfl8biaIbfhKFXnV2eE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.141:5000/getallemployee",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"getallemployee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllAmc",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getAllAmc/",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getAllAmc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmployeeAmc",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getAmcEmployee/6548a13c58f94f3706f0c784",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getAmcEmployee",
+								"6548a13c58f94f3706f0c784"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAmcCustomer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getAmcCustomer/6548aa6b952b77c9e394ecda",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getAmcCustomer",
+								"6548aa6b952b77c9e394ecda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllDnc",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getAllDnc/",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getAllDnc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmployeeDnc",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc3NzgxNzAyMTg2NWYwYmRhNmY4YiIsImlhdCI6MTY5ODgxOTEwNywiZXhwIjoxNjk5NDE5MTA3fQ.ju8Rzh5qUFN-4TPV7G67kn9UO6cnNu2ZmuZlpmCkmeY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.141:5000/getDncEmployee/6527860a7f9c82af046ff0b5",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"141"
+							],
+							"port": "5000",
+							"path": [
+								"getDncEmployee",
+								"6527860a7f9c82af046ff0b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDncCustomer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getDncCustomer/6548b0636fbe1c87347ff53b",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getDncCustomer",
+								"6548b0636fbe1c87347ff53b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmployeeCustomer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDhhMGRmNThmOTRmMzcwNmYwYzc3YyIsImlhdCI6MTY5OTI1ODY1MywiZXhwIjoxNjk5ODU4NjUzfQ.Nv7BbETo6cf3DdwWGoB4csmzvYVDjTDw8YgbhHt1Yxc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "192.168.0.142:5000/getEmpCustomer/6548a13c58f94f3706f0c784",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"142"
+							],
+							"port": "5000",
+							"path": [
+								"getEmpCustomer",
+								"6548a13c58f94f3706f0c784"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Employee Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employeeId",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Unknow@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/employeelogin",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"employeelogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgetpassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employeeId",
+									"value": "9999",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "9999999999",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/forgetpassword",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"forgetpassword"
+							],
+							"query": [
+								{
+									"key": "employeeId",
+									"value": "9999",
+									"disabled": true
+								},
+								{
+									"key": "mobile",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyOtp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "otp",
+									"value": "520084",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/verifyOtp/651d018eda91944d1b08d0d9",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"verifyOtp",
+								"651d018eda91944d1b08d0d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "Suyash@123",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "Suyash@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/changepassword/651d018eda91944d1b08d0d9",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"changepassword",
+								"651d018eda91944d1b08d0d9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "createCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Raju",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "23456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/createCustomer",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"createCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "mobile",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateCustomer/",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateCustomer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://demo5.testingsites.in/getCustomer",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"getCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCustomer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc3NzgxNzAyMTg2NWYwYmRhNmY4YiIsImlhdCI6MTY5NzA4NzU4MSwiZXhwIjoxNjk3Njg3NTgxfQ.xPhJpYAwZxEDNB_ZFuYIk7uaBR_TKppDi0gtaAK9Csg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/deletecustomer/65277eb7d1541eef4887a968",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"deletecustomer",
+								"65277eb7d1541eef4887a968"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCustomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AmcMachine",
+			"item": [
+				{
+					"name": "CreateAmc",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customerName",
+									"value": "farhanrastogi",
+									"type": "text"
+								},
+								{
+									"key": "uomNumber",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "modelNumber",
+									"value": "12121",
+									"type": "text"
+								},
+								{
+									"key": "serialNumber",
+									"value": "#ert123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/createamc",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"createamc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAmc",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cleanAirFiltersAndCheckAirFiltersCondition",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "cleaningOfDrainTrayAndCheckForWaterDrainProperlyCondensationWater",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "CheckCondensorCoilsAndCheckCleaningOfCondensorWithAirBlowerJetPumpService",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "CheckingOfODUFanMotorCurrent",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateamc/651f99020eda783a0ddc1874",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateamc",
+								"651f99020eda783a0ddc1874"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAmc3",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "CompressorOverHeating",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "CompressorAndRefrigerantPipeling",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "CheckingCableForOverHeatingAndTerminationForTightness",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "CheckMotorTerminationAndLooseContactAndOverHeat",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateamcthree/651f99020eda783a0ddc1874",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateamcthree",
+								"651f99020eda783a0ddc1874"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "refrigerant",
+			"item": [
+				{
+					"name": "createRefrigerant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UomNumber",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/createrefrigerant/",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"createrefrigerant",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRefrigerant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://demo5.testingsites.in/updaterefrigerant/:id",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updaterefrigerant",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DoAndChange",
+			"item": [
+				{
+					"name": "createDoAndChange",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzA5MDA3OSwiZXhwIjoxNjk3NjkwMDc5fQ.waeyLgirJ2pW7tNyg5lzegruL4oosPwedU6lPn_GaFw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "modelNumber",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "indoorSerialNumber",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "outdoorSerialNumber",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "assetNumber",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][RoomTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][indoorGrillTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][ambientTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][dischargePressure]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][suctionPressure]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[after][RoomTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[after][indoorGrillTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[after][ambientTemp]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[after][dischargePressure]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Observation[after][suctionPressure]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "warranty[power]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "warranty[compressor]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "warranty[electrical]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "warranty[installation]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "warranty[other]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[compressor][defective][modelNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[compressor][defective][serialNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[compressor][replaced][modelNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[compressor][replaced][serialNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[fanMotor][defective][modelNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[fanMotor][defective][serialNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[fanMotor][replaced][modelNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partRepair[fanMotor][replaced][serialNumber]",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partsReplaced",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "partsRepaired",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "gasChargingDone",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "drainPipeWork",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "routineServiceWet",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/createDnc/65277e9ed1541eef4887a962",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"createDnc",
+								"65277e9ed1541eef4887a962"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDAC",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzA5MDA3OSwiZXhwIjoxNjk3NjkwMDc5fQ.waeyLgirJ2pW7tNyg5lzegruL4oosPwedU6lPn_GaFw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateDnc/6527bab87bad83461782a97b",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateDnc",
+								"6527bab87bad83461782a97b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBeforeObservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzA5MDA3OSwiZXhwIjoxNjk3NjkwMDc5fQ.waeyLgirJ2pW7tNyg5lzegruL4oosPwedU6lPn_GaFw",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Observation[before][RoomTemp]",
+									"value": "34",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][indoorGrillTemp]",
+									"value": "37",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][ambientTemp]",
+									"value": "32",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][dischargePressure]",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][suctionPressure]",
+									"value": "9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateDnc/6527cdddb5f5e8d83007e3c7",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateDnc",
+								"6527cdddb5f5e8d83007e3c7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAfterObservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzA5MDA3OSwiZXhwIjoxNjk3NjkwMDc5fQ.waeyLgirJ2pW7tNyg5lzegruL4oosPwedU6lPn_GaFw",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Observation[before][RoomTemp]",
+									"value": "34",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][indoorGrillTemp]",
+									"value": "37",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][ambientTemp]",
+									"value": "32",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][dischargePressure]",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "Observation[before][suctionPressure]",
+									"value": "9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateDnc/6527cdddb5f5e8d83007e3c7",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateDnc",
+								"6527cdddb5f5e8d83007e3c7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateWarranty",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzIxOTIxMSwiZXhwIjoxNjk3ODE5MjExfQ.Bib1f62jxSX-vLqT6GyoECblihr6MTTN6yKQxk_zqYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "warranty[power]",
+									"value": "power ",
+									"type": "text"
+								},
+								{
+									"key": "warranty[compressor]",
+									"value": "compressor",
+									"type": "text"
+								},
+								{
+									"key": "warranty[installation]",
+									"value": "installation",
+									"type": "text"
+								},
+								{
+									"key": "warranty[electrical]",
+									"value": "electrical",
+									"type": "text"
+								},
+								{
+									"key": "warranty[other]",
+									"value": "Other",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/updateWarranty/6527cdddb5f5e8d83007e3c7",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"updateWarranty",
+								"6527cdddb5f5e8d83007e3c7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "partRepair",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzIxOTIxMSwiZXhwIjoxNjk3ODE5MjExfQ.Bib1f62jxSX-vLqT6GyoECblihr6MTTN6yKQxk_zqYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "partRepair.compressor.defective.modelNumber",
+									"value": "compressore",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.compressor.defective.serialNumber",
+									"value": "aaa",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.compressor.replaced.modelNumber",
+									"value": "ccc",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.compressor.replaced.serialNumber",
+									"value": "dddc",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.fanMotor.defective.modelNumber",
+									"value": "ccccc",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.fanMotor.defective.serialNumber",
+									"value": "dddd",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.fanMotor.replaced.modelNumber",
+									"value": "ssss",
+									"type": "text"
+								},
+								{
+									"key": "partRepair.fanMotor.replaced.serialNumber",
+									"value": "dddd",
+									"type": "text"
+								},
+								{
+									"key": "partsReplaced",
+									"value": "jjkgk",
+									"type": "text"
+								},
+								{
+									"key": "partsRepaired",
+									"value": "dddssa",
+									"type": "text"
+								},
+								{
+									"key": "gasChargingDone",
+									"value": "sdfdfa",
+									"type": "text"
+								},
+								{
+									"key": "drainPipeWork",
+									"value": "dvvaa",
+									"type": "text"
+								},
+								{
+									"key": "routineServiceWet",
+									"value": "ccdafe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/update/6527cdddb5f5e8d83007e3c7",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"update",
+								"6527cdddb5f5e8d83007e3c7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Installation And Commision",
+			"item": [
+				{
+					"name": "createInstallationAndCommision",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzIxOTIxMSwiZXhwIjoxNjk3ODE5MjExfQ.Bib1f62jxSX-vLqT6GyoECblihr6MTTN6yKQxk_zqYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/createIac/65277e9ed1541eef4887a962",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"createIac",
+								"65277e9ed1541eef4887a962"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "indoorSystem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Mjc4NjBhN2Y5YzgyYWYwNDZmZjBiNSIsImlhdCI6MTY5NzIxOTIxMSwiZXhwIjoxNjk3ODE5MjExfQ.Bib1f62jxSX-vLqT6GyoECblihr6MTTN6yKQxk_zqYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://demo5.testingsites.in/indoorSystem/652c5b0869a5e25b3094b60e",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"indoorSystem",
+								"652c5b0869a5e25b3094b60e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateoutdoor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://demo5.testingsites.in/outdoorSystem/652c68740f125815ae6f7b9d",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"outdoorSystem",
+								"652c68740f125815ae6f7b9d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIac",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://demo5.testingsites.in/deleteSystem/652c68740f125815ae6f7b9d",
+							"protocol": "http",
+							"host": [
+								"demo5",
+								"testingsites",
+								"in"
+							],
+							"path": [
+								"deleteSystem",
+								"652c68740f125815ae6f7b9d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
